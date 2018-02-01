@@ -31,7 +31,7 @@ new Breadcaster(context)
     .register();
 ```
 
-#### With Breadcast Annotations:
+#### With Breadcast Annotation:
 ```java
 Breadcast.init(context);
 ```
