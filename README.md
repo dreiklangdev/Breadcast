@@ -44,7 +44,7 @@ class MyClass { // extends ...
     @Receive(action = Intent.ACTION_SCREEN_OFF)
     onActionScreenOff() { ... }
     
-    @Receive(action = Intent.ACTION_SCREEN_ON, threadmode = MAIN)
+    @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.MAIN)
     onActionScreenOn(Context context, Intent intent) { ... } // onUiThread
 }
 ```
