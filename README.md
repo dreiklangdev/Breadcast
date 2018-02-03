@@ -1,4 +1,4 @@
-# ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast
+# ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast (Alpha)
 Broadcast Receiver Library for Android
 
 > ... simplifies listening to broadcasts by hiding what would be boilerplate code.
@@ -44,12 +44,18 @@ class MyClass { // extends ...
     @Receive(action = Intent.ACTION_SCREEN_OFF)
     onActionScreenOff() { ... }
     
-    @Receive(action = Intent.ACTION_SCREEN_ON, threadmode = MAIN)
+    @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.MAIN)
     onActionScreenOn(Context context, Intent intent) { ... } // onUiThread
 }
 ```
 
 __Thank you and have fun!__
+
+### RoadMap
+- Logging
+- Configuration (on Initialization)
+    - Log Level
+    - Exception Handling
 
 License
 -------
