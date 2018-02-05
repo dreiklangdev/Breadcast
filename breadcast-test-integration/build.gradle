@@ -29,13 +29,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    androidTestImplementation project(':breadcast-base')
+    androidTestImplementation project(':breadcast-annotation')
+    androidTestAnnotationProcessor project(':breadcast-processor')
 
-    // debug
-//    androidTestImplementation project(':breadcast-base')
-//    androidTestImplementation project(':breadcast-annotation')
-//    androidTestAnnotationProcessor project(':breadcast-processor')
-
-    androidTestImplementation 'io.dreiklang:breadcast-annotation:1.0.0'
-    androidTestImplementation 'io.dreiklang:breadcast-base:1.0.0'
-    androidTestAnnotationProcessor 'io.dreiklang:breadcast-processor:1.0.0'
+//    androidTestImplementation 'io.dreiklang:breadcast-annotation:1.0.0'
+//    androidTestImplementation 'io.dreiklang:breadcast-base:1.0.0'
+//    androidTestAnnotationProcessor 'io.dreiklang:breadcast-processor:1.0.0'
 }

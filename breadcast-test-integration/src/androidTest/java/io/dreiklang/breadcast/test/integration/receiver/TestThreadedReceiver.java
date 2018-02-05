@@ -1,4 +1,4 @@
-package io.dreiklang.breadcast.test.integration.threaded;
+package io.dreiklang.breadcast.test.integration.receiver;
 
 import android.os.Looper;
 

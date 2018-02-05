@@ -1,4 +1,4 @@
-package io.dreiklang.breadcast.test.integration.threaded;
+package io.dreiklang.breadcast.test.integration;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import org.junit.runner.RunWith;
 import java.util.concurrent.CountDownLatch;
 
 import io.dreiklang.breadcast.Breadcast;
-import io.dreiklang.breadcast.test.integration.TestReceiver;
+import io.dreiklang.breadcast.test.integration.receiver.TestReceiver;
+import io.dreiklang.breadcast.test.integration.receiver.TestThreadedReceiver;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;

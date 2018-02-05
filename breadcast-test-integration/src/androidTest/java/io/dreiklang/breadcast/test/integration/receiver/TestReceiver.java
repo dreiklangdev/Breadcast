@@ -1,4 +1,4 @@
-package io.dreiklang.breadcast.test.integration;
+package io.dreiklang.breadcast.test.integration.receiver;
 
 import io.dreiklang.breadcast.annotation.Receive;
 

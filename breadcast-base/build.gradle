@@ -33,8 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-//    implementation project(path: ':breadcast-annotation')
-    implementation 'io.dreiklang:breadcast-annotation:1.0.0'
+    implementation project(path: ':breadcast-annotation')
 }
 
 ext {
