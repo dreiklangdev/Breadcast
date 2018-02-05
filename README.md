@@ -32,7 +32,7 @@ filter.addAction(Intent.ACTION_SCREEN_ON);
 context.registerBroadcast(new MyReceiver(), filter);
 ```
 
-### With Breadcast you can choose between 2 methods:
+### With Breadcast you can choose between 2 ways:
 
 #### Breadcast Standalone (Base package):
 ```java
