@@ -5,4 +5,6 @@
   - Exception Handling
 - Thread Modes POSTING and MAIN possibly obsolete
 
-> Help me if you can :)
+##### Help me if you can :)
+
+> "We must all suffer one of two things: The pain of discipline or the pain of regret." (Jim Rohn)
