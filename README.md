@@ -1,3 +1,5 @@
+ ###### Base: [ ![Download](https://api.bintray.com/packages/dreiklang/Breadcast/breadcast-base/images/download.svg) ](https://bintray.com/dreiklang/Breadcast/breadcast-base/_latestVersion) Processor: [ ![Download](https://api.bintray.com/packages/dreiklang/Breadcast/breadcast-processor/images/download.svg) ](https://bintray.com/dreiklang/Breadcast/breadcast-processor/_latestVersion) Annotation: [ ![Download](https://api.bintray.com/packages/dreiklang/Breadcast/breadcast-annotation/images/download.svg) ](https://bintray.com/dreiklang/Breadcast/breadcast-annotation/_latestVersion)
+
 # ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast
 Small Broadcast Receiver Library for Android
 
