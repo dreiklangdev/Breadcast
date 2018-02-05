@@ -52,6 +52,7 @@ class MyClass { // extends ...
 ## Download
 ```java
 dependencies { // gradle
+    // required
     implementation 'io.dreiklang:breadcast-base:1.0.0'
     
     // if you use the annotation
