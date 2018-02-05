@@ -9,7 +9,7 @@ Small Broadcast Receiver Library for Android
 - __Thread-Modes__: Multithreaded callback via annotation option
 - __Simple__: With possible broadcast listening in one statement
 - __Clean__: Breadcast hides work behind curtains...
-- __Fast__: ...by generating everything before runtime
+- __Fast__: ...by generating things before runtime
 
 #### Before:
 ```java
