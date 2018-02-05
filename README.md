@@ -29,9 +29,9 @@ filter.addAction(Intent.ACTION_SCREEN_ON);
 context.registerBroadcast(new MyReceiver(), filter);
 ```
 
-With Breadcast you can choose between 2 methods:
+### With Breadcast you can choose between 2 methods:
 
-#### With Breadcast Standalone:
+#### Breadcast Standalone (Base package):
 ```java
 new Breadcaster(context)
     .action(Intent.ACTION_SCREEN_OFF, (context, intent) -> ... )
@@ -39,7 +39,7 @@ new Breadcaster(context)
     .register();
 ```
 
-#### With Breadcast Annotation:
+#### Breadcast Annotation:
 ```java
 Breadcast.init(context);
 ```
