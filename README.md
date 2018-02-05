@@ -1,4 +1,4 @@
-# ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast (Unstable)
+# ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast
 Broadcast Receiver Library for Android
 
 > ... simplifies listening to broadcasts by hiding what would be boilerplate code.
@@ -54,11 +54,11 @@ class MyClass { // extends ...
 ```java
 dependencies {
     // required
-    implementation 'io.dreiklang:breadcast-base:1.0.0'
+    implementation 'io.dreiklang:breadcast-base:1.0.1'
     
     // if you use the annotation
-    implementation 'io.dreiklang:breadcast-annotation:1.0.0'
-    annotationProcessor 'io.dreiklang:breadcast-processor:1.0.0'
+    implementation 'io.dreiklang:breadcast-annotation:1.0.1'
+    annotationProcessor 'io.dreiklang:breadcast-processor:1.0.1'
 }
 ```
 
