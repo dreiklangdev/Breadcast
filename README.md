@@ -1,5 +1,5 @@
 # ![bread](https://png.icons8.com/metro/50/000000/bread.png) Breadcast
-Broadcast Receiver Library for Android
+Small Broadcast Receiver Library for Android
 
 > ... simplifies listening to broadcasts by hiding what would be boilerplate code.
 
