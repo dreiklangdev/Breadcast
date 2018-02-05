@@ -56,7 +56,7 @@ dependencies { // gradle
     
     // if you use the annotation
     implementation 'io.dreiklang:breadcast-annotation:1.0.0'
-    implementation 'io.dreiklang:breadcast-processor:1.0.0'
+    annotationProcessor 'io.dreiklang:breadcast-processor:1.0.0'
 }
 ```
 
