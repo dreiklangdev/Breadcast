@@ -50,8 +50,9 @@ class MyClass { // extends ...
 ```
 
 ## Download
+#### Gradle
 ```java
-dependencies { // gradle
+dependencies {
     // required
     implementation 'io.dreiklang:breadcast-base:1.0.0'
     
