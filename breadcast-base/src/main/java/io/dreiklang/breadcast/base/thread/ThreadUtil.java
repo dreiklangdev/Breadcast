@@ -16,14 +16,14 @@ public final class ThreadUtil {
     }
 
     /**
-     * Runs on thread defined by {@link ThreadModus}
+     * Runs on thread defined by ThreadModus
      * @param modus     ThreadModus
      * @param runnable  functional interface to run
      */
     public static void runOnThread(ThreadModus modus, Runnable runnable) {
         switch (modus) {
 
-            case POSTING:
+            case POSTING: // TODO obsolet as posting thread only configurable on registerBroadcast?
                 runnable.run();
                 break;
 
@@ -42,15 +42,20 @@ public final class ThreadUtil {
     }
 
     /**
-     * Runs on the android UI thread aka main thread. See {@link ThreadModus#MAIN}
+     * Runs on the android UI thread aka main thread. See ThreadModus#MAIN
      * @param runnable
      */
     public static void runOnUiThread(Runnable runnable) {
-        new Handler(Looper.getMainLooper()).post(runnable);
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+        }
+        else {
+            new Handler(Looper.getMainLooper()).post(runnable);
+        }
     }
 
     /**
-     * Runs on a background thread. See {@link ThreadModus#BACKGROUND}
+     * Runs on a background thread. See ThreadModus#BACKGROUND
      * @param runnable
      */
     public static void runOnBackgroundThread(Runnable runnable) {
@@ -63,7 +68,7 @@ public final class ThreadUtil {
     }
 
     /**
-     * Runs asynchronous. See {@link ThreadModus#ASYNC}
+     * Runs asynchronous. See ThreadModus#ASYNC
      * @param runnable
      */
     // TODO replace by threadpool/executor?

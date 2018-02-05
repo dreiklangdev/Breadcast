@@ -6,3 +6,12 @@ dependencies {
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+ext {
+    bintrayName = 'breadcast-annotation'
+    libraryName = 'breadcast-annotation'
+    artifact = 'breadcast-annotation'
+    libraryDescription = 'Broadcast Receiver Library for Android: Annotation'
+}
+
+apply from: '../lib.gradle'

@@ -17,19 +17,20 @@ public class ExecutiveManager {
     private final Map<Class, TypedExecutive> executives = new ConcurrentHashMap<>();
 
     /**
-     * Sets or overrides the execution run on all instances according to class type and listening action.
-     * @param clazz         class object as the key parameter.
+     * Sets or overrides the execution run on all instances according to class type and listening method.
+     * @param clazz         class object as the primary key.
+     * @param method        method as secondary key.
      * @param execution     execution to run on {@link #exec(Class, String, Context, Intent)} call.
      * @param <T>           generic class type to keep both class and execution in fit.
      */
-    public <T> void defineExecutive(Class<T> clazz, String action, TypedMultiExecution<T> execution) {
+    public <T> void defineExecutive(Class<T> clazz, String method, TypedMultiExecution<T> execution) {
         TypedExecutive<T> executive = executives.get(clazz);
         if (executive == null) {
             executive = new TypedExecutive<T>();
             executives.put(clazz, executive);
         }
 
-        executive.put(action, execution);
+        executive.put(method, execution);
     }
 
     /**
@@ -71,13 +72,15 @@ public class ExecutiveManager {
     }
 
     /**
-     * Runs the action specified execution of the respective class on all instances of the class type.
+     * Runs the execution specified by class and method name on all instances of the respective class type.
      * @param clazz     class type to execute on.
+     * @param method    method specifier.
+     * @param context   context of #onReceive.
      * @param intent    intent parameter from {@link android.content.BroadcastReceiver#onReceive(Context, Intent)}
      * @param <T>
      */
-    public <T> void exec(Class<T> clazz, String action, Context context, Intent intent) {
-        executives.get(clazz).exec(action, context, intent);
+    public <T> void exec(Class<T> clazz, String method, Context context, Intent intent) {
+        executives.get(clazz).exec(method, context, intent);
     }
 
 }

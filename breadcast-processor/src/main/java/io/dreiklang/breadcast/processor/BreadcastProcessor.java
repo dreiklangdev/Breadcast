@@ -182,7 +182,7 @@ public class BreadcastProcessor extends AbstractProcessor {
                             .build())
                     .build();
             initExecutionSpec
-                    .addStatement("putTypedExecution($T.class, $S, $T.$L, $L)", receive.type, receive.action, ThreadModus.class, receive.threadModus, execution);
+                    .addStatement("putTypedExecution($T.class, $S, $S, $T.$L, $L)", receive.type, receive.action, receive.methodName, ThreadModus.class, receive.threadModus, execution);
         });
 
         return breadcastBuilder

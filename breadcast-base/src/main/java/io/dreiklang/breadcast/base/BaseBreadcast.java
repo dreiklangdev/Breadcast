@@ -3,6 +3,8 @@ package io.dreiklang.breadcast.base;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Collection;
+
 import io.dreiklang.breadcast.annotation.ThreadModus;
 import io.dreiklang.breadcast.base.exception.NoAnnotatedMethodException;
 import io.dreiklang.breadcast.base.exec.Execution;
@@ -11,12 +13,12 @@ import io.dreiklang.breadcast.base.exec.TypedExecution;
 import io.dreiklang.breadcast.base.exec.TypedMultiExecution;
 import io.dreiklang.breadcast.base.thread.ThreadUtil;
 
-import java.util.Collection;
-
 /**
  * Base class of the custom generated Breadcast.
  * @author Nhu Huy Le, mail@huy-le.de
  */
+// TODO cant resolve jdoc dependencies
+// see https://stackoverflow.com/questions/10895032/javadoc-with-gradle-dont-get-the-libraries-while-running-javadoc-task
 
 public abstract class BaseBreadcast {
 
@@ -48,8 +50,8 @@ public abstract class BaseBreadcast {
         }
     }
 
-    protected <T> void putTypedExecution(final Class<T> clazz, final String action, final ThreadModus modus, final TypedExecution<T> execution) {
-        manager.defineExecutive(clazz, action, new TypedMultiExecution<T>() {
+    protected <T> void putTypedExecution(final Class<T> clazz, final String action, final String method, final ThreadModus modus, final TypedExecution<T> execution) {
+        manager.defineExecutive(clazz, method, new TypedMultiExecution<T>() {
             @Override
             public void exec(Context context, Intent intent, Collection<T> instances) {
                 for (T instance: instances) {
@@ -64,7 +66,7 @@ public abstract class BaseBreadcast {
                 ThreadUtil.runOnThread(modus, new Runnable() {
                     @Override
                     public void run() {
-                        manager.exec(clazz, action, context, intent);
+                        manager.exec(clazz, method, context, intent);
                     }
                 });
             }

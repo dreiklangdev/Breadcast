@@ -3,8 +3,19 @@ apply plugin: 'java-library'
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.squareup:javapoet:1.9.0'
-    compile project(path: ':breadcast-annotation')
+
+//    compile project(path: ':breadcast-annotation')
+    implementation 'io.dreiklang:breadcast-annotation:1.0.0'
 }
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
+
+ext {
+    bintrayName = 'breadcast-processor'
+    libraryName = 'breadcast-processor'
+    artifact = 'breadcast-processor'
+    libraryDescription = 'Broadcast Receiver Library for Android: Processor'
+}
+
+apply from: '../lib.gradle'

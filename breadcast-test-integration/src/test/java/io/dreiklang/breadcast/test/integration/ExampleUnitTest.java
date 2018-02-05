@@ -1,4 +1,4 @@
-package io.dreiklang.breadcast.base;
+package io.dreiklang.breadcast.test.integration;
 
 import org.junit.Test;
 

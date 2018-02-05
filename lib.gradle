@@ -1,0 +1,22 @@
+
+ext {
+    bintrayRepo = 'Breadcast'
+
+    publishedGroupId = 'io.dreiklang'
+
+    siteUrl = 'https://github.com/dreiklangdev/Breadcast'
+    gitUrl = 'https://github.com/dreiklangdev/Breadcast.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'dreiklang'
+    developerName = 'Nhu Huy Le'
+    developerEmail = 'mail@huy-le.de'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

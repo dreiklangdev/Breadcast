@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Responsible for executions in instances of distinct class and distinct broadcast action.
+ * Responsible for executions in instances of one distinct class.
  * @author Nhu Huy Le, mail@huy-le.de
  */
 
@@ -21,15 +21,15 @@ public class TypedExecutive<T> {
     private final Map<String, List<TypedMultiExecution<T>>> executionsMap = new ConcurrentHashMap<>();
 
     /**
-     * Run the callback of a distinct action defined by {@link #put(String, TypedMultiExecution)}.
-     * @param action    broadcast action to run on
+     * Run the method callback defined by {@link #put(String, TypedMultiExecution)}.
+     * @param method    method name to run the callback on
      * @param context   context under which broadcast was sent with {@link Context#sendBroadcast(Intent)}
      * @param intent    intent with which broadcast was sent with {@link Context#sendBroadcast(Intent)}
      */
-    public void exec(String action, Context context, Intent intent) {
-        List<TypedMultiExecution<T>> executions = executionsMap.get(action);
+    public void exec(String method, Context context, Intent intent) {
+        List<TypedMultiExecution<T>> executions = executionsMap.get(method);
         if (executions == null) {
-            throw new IllegalArgumentException("no executions found under action: " + action);
+            throw new IllegalArgumentException("no executions found for method: " + method);
         }
         for (TypedMultiExecution<T> execution : executions) {
             execution.exec(context, intent, instances);
@@ -37,15 +37,15 @@ public class TypedExecutive<T> {
     }
 
     /**
-     * Defines an execution mapped by the action string.
-     * @param action    broadcast action, on which the execution will run
-     * @param execution typed callback to run on action
+     * Defines an execution mapped by the method name.
+     * @param method    method name, on which the execution will run
+     * @param execution typed callback to run on method
      */
-    public void put(String action, TypedMultiExecution<T> execution) {
-        List<TypedMultiExecution<T>> executions = executionsMap.get(action);
+    public void put(String method, TypedMultiExecution<T> execution) {
+        List<TypedMultiExecution<T>> executions = executionsMap.get(method);
         if (executions == null) {
             executions = Collections.synchronizedList(new ArrayList<TypedMultiExecution<T>>());
-            executionsMap.put(action, executions);
+            executionsMap.put(method, executions);
         }
         executions.add(execution);
     }

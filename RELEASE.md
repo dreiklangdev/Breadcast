@@ -1,0 +1,2 @@
+- change library version in parent lib.gradle
+- run gradle tasks _install_ and _bintrayUpload_ on each module with cmd (instead with android studio)
