@@ -3,6 +3,10 @@ Broadcast Receiver Library for Android
 
 > ... simplifies listening to broadcasts by hiding what would be boilerplate code.
 
+- __One for All__: Single BroadcastReceiver instance for a performance/memory boost
+- __Clean look__: Breadcast generates the code behind the curtains
+- __Simple__: * With possible broadcast listening in one statement
+
 #### Before:
 ```java
 class MyReceiver extends BroadcastReceiver {
