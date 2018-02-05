@@ -67,9 +67,9 @@ dependencies {
 }
 ```
 
-Please open an issue case if you find one. It's merely 1-2 minutes against __literally tons of neurons__ roasted for debunking them.
+Please open an issue case if you find one. It's merely 1-2 minutes against literally tons of neurons roasted for debunking them.
 
-__Thank you and have fun!__
+__Thank you and have fun! :)__
 
 License
 -------
