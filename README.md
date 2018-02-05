@@ -51,12 +51,6 @@ class MyClass { // extends ...
 
 __Thank you and have fun!__
 
-### RoadMap
-- Logging
-- Configuration (on Initialization)
-    - Log Level
-    - Exception Handling
-
 License
 -------
 
