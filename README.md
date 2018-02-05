@@ -49,6 +49,17 @@ class MyClass { // extends ...
 }
 ```
 
+## Download
+```java
+dependencies { // gradle
+    implementation 'io.dreiklang:breadcast-base:1.0.0'
+    
+    // if you use the annotation
+    implementation 'io.dreiklang:breadcast-annotation:1.0.0'
+    implementation 'io.dreiklang:breadcast-processor:1.0.0'
+}
+```
+
 __Thank you and have fun!__
 
 License
