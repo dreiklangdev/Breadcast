@@ -67,7 +67,7 @@ dependencies {
 }
 ```
 
-__Thank you and have fun!__
+__Please open an issue case if you find one. It's merely 1-2 minutes against tons of neurons roasted for debunking them. Thank you and have fun!__
 
 License
 -------
