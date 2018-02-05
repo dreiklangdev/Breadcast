@@ -52,8 +52,8 @@ class MyClass { // extends ...
     @Receive(action = Intent.ACTION_SCREEN_OFF)
     onActionScreenOff() { ... }
     
-    @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.MAIN)
-    onActionScreenOn(Context context, Intent intent) { ... } // onUiThread
+    @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.ASYNC)
+    onActionScreenOn(Context context, Intent intent) { ... } // asynchronous
 }
 ```
 
