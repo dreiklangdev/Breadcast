@@ -12,7 +12,6 @@ public class ManifestBreadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        System.out.println("onStaticReceive");
         SingletonBreadcast.instance().exec(intent);
     }
 

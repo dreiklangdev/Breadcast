@@ -52,17 +52,23 @@ class MyClass { // extends ...
     }
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
-    onScreenOff() { ... }
-    
-    @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.ASYNC)
-    onScreenOn(Context context, Intent intent) { ... } // asynchronous
-	
-	@Receive(action = Intent.ACTION_USER_PRESENT)
-    static onBoot() { ... } // called exactly once per action regardless of registrations
+    void onScreenOff() { ... }
 }
 ```
 
-##### Sometimes, you cannot register in code (e.g. Intent.ACTION_BOOT_COMPLETED) - use the __Manifest__ instead:
+##### More examples
+```java
+    @Receive(action = {Intent.ACTION_SCREEN_ON, Intent.ACTION_SCREEN_OFF}, threadMode = ThreadModus.ASYNC)
+    void onScreenChange(Context context, Intent intent) { ... } // multiple asynchronous
+	
+	@Receive(action = {"custom1", "custom2"})
+    void onCustom() { ... }
+	
+	static void withoutRegister() { ... } // static - called once regardless of registration	
+```
+
+
+#####  To register Breadcast by manifest, use _ManifestBreadcast_:
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
 	<intent-filter>
@@ -72,7 +78,7 @@ class MyClass { // extends ...
 ```
 ```
 ...
-	@Receive(action = Intent.ACTION_USER_PRESENT)
+	@Receive(action = Intent.ACTION_BOOT_COMPLETED)
     static onBoot() { ... } // must be static
 ```
 

@@ -43,13 +43,17 @@ public class AnnotationBreadcastTest {
         appContext.sendBroadcast(new Intent("2"));
         appContext.sendBroadcast(new Intent("3"));
         appContext.sendBroadcast(new Intent("4"));
+        appContext.sendBroadcast(new Intent("static"));
         Thread.sleep(2000);
 
         assertTrue("hasRun1", receiver.isRun1());
         assertTrue("hasRun2", receiver.isRun2());
         assertTrue("hasRun3", receiver.isRun3());
-        assertTrue("hasRun4", receiver.isRun4());
+        assertTrue("hasRunMultiA", receiver.isRunMultiA());
+        assertTrue("hasRunMultiB", receiver.isRunMultiB());
+        assertTrue("hasRunStatic", receiver.isRunStatic());
         assertTrue("notRun", receiver.isNoRun());
+        Breadcast.instance().unregister(receiver);
     }
 
     private final CountDownLatch latch = new CountDownLatch(4);
@@ -66,6 +70,7 @@ public class AnnotationBreadcastTest {
         // receives in main thread
         appContext.sendBroadcast(new Intent("thread"));
         latch.await();
+        Breadcast.instance().unregister(receiver);
     }
 
 }

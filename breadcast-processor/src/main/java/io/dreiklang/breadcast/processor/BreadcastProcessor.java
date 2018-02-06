@@ -163,13 +163,13 @@ public class BreadcastProcessor extends AbstractProcessor {
 
                 case 1:
                     initExecutionSpec
-                            .addStatement("putTypedExecution($T.class, $S, $S, $L, $T.$L, $L)",
+                            .addStatement("map($T.class, $S, $S, $L, $T.$L, $L)",
                                     receive.type, receive.actions[0], receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
                     break;
 
                 default: // mutliple actions
                     initExecutionSpec
-                            .addStatement("putTypedExecution($T.class, new String[] {$L}, $S, $L, $T.$L, $L)",
+                            .addStatement("map($T.class, new String[] {$L}, $S, $L, $T.$L, $L)",
                                     receive.type, actions, receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
                     break;
             }
