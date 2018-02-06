@@ -112,11 +112,20 @@ public class Breadcaster extends BroadcastReceiver {
     }
 
     /**
-     * If breadcaster object is currently registered.
-     * @return
+     * @return If breadcaster object is currently registered.
      */
     public boolean isRegistered() {
         return isRegistered;
+    }
+
+    /**
+     * @return Underlying context.
+     */
+    public Context getContext() {
+        if (context == null) {
+            throw new IllegalStateException("breadcaster already released");
+        }
+        return context;
     }
 
     /**

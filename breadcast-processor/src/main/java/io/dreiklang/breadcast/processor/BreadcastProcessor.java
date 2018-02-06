@@ -106,7 +106,7 @@ public class BreadcastProcessor extends AbstractProcessor {
 
     private TypeSpec generateBreadcast() {
         ClassName breadcastName   = ClassName.get("io.dreiklang.breadcast", "Breadcast");
-        ClassName singletonBCName = ClassName.get("io.dreiklang.breadcast.base", "SingletonBreadcast");
+        ClassName singletonBCName = ClassName.get("io.dreiklang.breadcast.base.statics", "SingletonBreadcast");
         ClassName baseBCName      = ClassName.get("io.dreiklang.breadcast.base", "BaseBreadcast");
         ClassName execName        = ClassName.get("io.dreiklang.breadcast.base.exec", "TypedExecution");
         ClassName contextName     = ClassName.get("android.content", "Context");
@@ -162,7 +162,7 @@ public class BreadcastProcessor extends AbstractProcessor {
 //                        .build())
                 .addMethod(MethodSpec
                         .methodBuilder("init")
-                        .addJavadoc("Installs (bakes) Breadcast with a context, preferably an application context.")
+                        .addJavadoc("Installs Breadcast with a context, preferably the application context. (Baking the bread)")
                         .addModifiers(PUBLIC, STATIC)
                         .addParameter(contextName, "context")
 //                        .beginControlFlow("if(instance != null)")
@@ -194,7 +194,8 @@ public class BreadcastProcessor extends AbstractProcessor {
                             .build())
                     .build();
             initExecutionSpec
-                    .addStatement("putTypedExecution($T.class, $S, $S, $T.$L, $L)", receive.type, receive.action, receive.methodName, ThreadModus.class, receive.threadModus, execution);
+                    .addStatement("putTypedExecution($T.class, $S, $S, $L, $T.$L, $L)",
+                            receive.type, receive.action, receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
         });
 
         return breadcastBuilder
@@ -231,6 +232,10 @@ public class BreadcastProcessor extends AbstractProcessor {
             Receive annotation    = annotated.getAnnotation(Receive.class);
             ReceiveHolder receive = new ReceiveHolder();
 
+            if (method.getModifiers().contains(STATIC)) {
+                receive.isStatic = true;
+            }
+
             for (VariableElement param : params) {
                 switch (param.asType().toString()) {
                     case "android.content.Context":
@@ -265,6 +270,7 @@ public class BreadcastProcessor extends AbstractProcessor {
         String contextParam;
         String intentParam;
         ThreadModus threadModus;
+        boolean isStatic = false;
     }
 
 }

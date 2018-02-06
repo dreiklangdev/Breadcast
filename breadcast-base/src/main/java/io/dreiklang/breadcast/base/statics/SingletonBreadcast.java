@@ -1,6 +1,8 @@
-package io.dreiklang.breadcast.base;
+package io.dreiklang.breadcast.base.statics;
 
 import android.content.Context;
+
+import io.dreiklang.breadcast.base.BaseBreadcast;
 
 /**
  * Breadcast implementing the static singleton pattern.

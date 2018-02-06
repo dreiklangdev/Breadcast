@@ -48,16 +48,36 @@ Breadcast.init(context);
 ```java
 class MyClass { // extends ...
     MyClass() {
-        Breadcast.register(this);
+        Breadcast.register(this); // only required for non-static methods
     }
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
-    onActionScreenOff() { ... }
+    onScreenOff() { ... }
     
     @Receive(action = Intent.ACTION_SCREEN_ON, threadMode = ThreadModus.ASYNC)
-    onActionScreenOn(Context context, Intent intent) { ... } // asynchronous
+    onScreenOn(Context context, Intent intent) { ... } // asynchronous
+	
+	@Receive(action = Intent.ACTION_USER_PRESENT)
+    static onBoot() { ... } // called exactly once per action regardless of registrations
 }
 ```
+
+##### Sometimes, you cannot register in code (e.g. Intent.ACTION_BOOT_COMPLETED) - use the __Manifest__ instead:
+```xml
+<receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
+	<intent-filter>
+		<action android:name="android.intent.action.BOOT_COMPLETED" />
+	</intent-filter>
+</receiver>
+```
+
+```
+	@Receive(action = Intent.ACTION_USER_PRESENT)
+    static onBoot() { ... } // called exactly once each action
+```
+
+Important: Above, the respective annotated methods must be __static__!
+
 
 ## Download
 #### Gradle

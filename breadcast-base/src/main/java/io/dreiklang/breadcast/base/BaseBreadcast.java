@@ -63,12 +63,17 @@ public abstract class BaseBreadcast {
         }
     }
 
-    protected <T> void putTypedExecution(final Class<T> clazz, final String action, final String method, final ThreadModus modus, final TypedExecution<T> execution) {
+    protected <T> void putTypedExecution(final Class<T> clazz, final String action, final String method, final boolean isStatic, final ThreadModus modus, final TypedExecution<T> execution) {
         manager.defineExecutive(clazz, method, new TypedMultiExecution<T>() {
             @Override
             public void exec(Context context, Intent intent, Collection<T> instances) {
-                for (T instance: instances) {
-                    execution.exec(context, intent, instance);
+                if (isStatic) {
+                    execution.exec(context, intent, null);
+                }
+                else if (instances != null) {
+                    for (T instance: instances) {
+                        execution.exec(context, intent, instance);
+                    }
                 }
             }
         });
