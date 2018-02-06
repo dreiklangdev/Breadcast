@@ -119,17 +119,30 @@ public class Breadcaster extends BroadcastReceiver {
         return isRegistered;
     }
 
-    private void exec(Context context, Intent intent) {
+    /**
+     * Manually run all callbacks/executions listening to the intent action on the context initialized with.
+     * @param intent    intent with action the executions are mapped to.
+     *                  if mapping exists and executions ran.
+     */
+    public boolean exec(Intent intent) {
+        return exec(context, intent);
+    }
+
+    private boolean exec(Context context, Intent intent) {
         if (intent == null) {
-            return;
+            return false;
         }
 
         List<Execution> list = executions.get(intent.getAction());
-        if (list != null) {
-            for (Execution execution : list) {
-                execution.exec(context, intent);
-            }
+        if (list == null) {
+            return false;
         }
+
+        for (Execution execution : list) {
+            execution.exec(context, intent);
+        }
+
+        return true;
     }
 
     private IntentFilter getIntentFilter() {

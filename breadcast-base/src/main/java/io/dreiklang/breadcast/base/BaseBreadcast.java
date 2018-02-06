@@ -34,7 +34,18 @@ public abstract class BaseBreadcast {
         caster.register();
     }
 
-    protected void addReceiver(Object object) {
+    /**
+     * Manually run all callbacks/executions listening to the intent action.
+     * @param intent    intent with action the executions are mapped to.
+     * @return          if mapping exists and executions ran.
+     */
+    public boolean exec(Intent intent) {
+        return caster.exec(intent);
+    }
+
+    /**
+     * Registers an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. Throws an exception if no annotated method is found. */
+    public void register(Object object) {
         if (!manager.addInstance(object)) {
             if (NamExceptionOpt) {
                 throw new NoAnnotatedMethodException();
@@ -42,7 +53,9 @@ public abstract class BaseBreadcast {
         }
     }
 
-    protected void removeReceiver(Object object) {
+    /**
+     * Unregisters an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. Throws an exception if no annotated method is found. */
+    public void unregister(Object object) {
         if (!manager.removeInstance(object)) {
             if (NamExceptionOpt) {
                 throw new NoAnnotatedMethodException();

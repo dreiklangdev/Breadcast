@@ -3,7 +3,7 @@ package io.dreiklang.breadcast.test.integration.receiver;
 import io.dreiklang.breadcast.annotation.Receive;
 
 /**
- * @author Nhu Huy Le (mail@huyle.de), on 05/02/2018
+ * @author Nhu Huy Le (mail@huy-le.de), on 05/02/2018
  */
 
 public class TestReceiver {

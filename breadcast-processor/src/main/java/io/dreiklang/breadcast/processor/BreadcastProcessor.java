@@ -1,7 +1,6 @@
 package io.dreiklang.breadcast.processor;
 
 import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -106,57 +105,70 @@ public class BreadcastProcessor extends AbstractProcessor {
     }
 
     private TypeSpec generateBreadcast() {
-        ClassName breadcastName = ClassName.get("io.dreiklang.breadcast", "Breadcast");
-        ClassName execName      = ClassName.get("io.dreiklang.breadcast.base.exec", "TypedExecution");
-        ClassName contextName   = ClassName.get("android.content", "Context");
-        ClassName intentName    = ClassName.get("android.content", "Intent");
+        ClassName breadcastName   = ClassName.get("io.dreiklang.breadcast", "Breadcast");
+        ClassName singletonBCName = ClassName.get("io.dreiklang.breadcast.base", "SingletonBreadcast");
+        ClassName baseBCName      = ClassName.get("io.dreiklang.breadcast.base", "BaseBreadcast");
+        ClassName execName        = ClassName.get("io.dreiklang.breadcast.base.exec", "TypedExecution");
+        ClassName contextName     = ClassName.get("android.content", "Context");
+        ClassName intentName      = ClassName.get("android.content", "Intent");
 
         TypeSpec.Builder breadcastBuilder = TypeSpec
                 .classBuilder(breadcastName.simpleName())
                 .addJavadoc("Breadcast listens to broadcasted actions and executes the respective methods annotated" +
                         "with {@link io.dreiklang.breadcast.annotation.Receive} of objects registered by {@link #register(Object)}.")
                 .addModifiers(PUBLIC)
-                .superclass(ClassName.get("io.dreiklang.breadcast.base", "BaseBreadcast"))
-                .addField(FieldSpec
-                        .builder(breadcastName, "instance", PRIVATE, STATIC)
-                        .build())
+                .superclass(singletonBCName)
+//                .addField(FieldSpec
+//                        .builder(breadcastName, "instance", PRIVATE, STATIC)
+//                        .build())
                 .addMethod(MethodSpec
                         .constructorBuilder()
                         .addModifiers(PRIVATE)
                         .addParameter(contextName, "context")
                         .addStatement("super(context)")
                         .build())
-                .addMethod(MethodSpec
-                        .methodBuilder("register")
-                        .addJavadoc("Registers an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
-                                "Throws an exception if no annotated method is found.")
-                        .addModifiers(PUBLIC, STATIC)
-                        .addParameter(Object.class, "object")
-                        .beginControlFlow("if(instance == null)")
-                            .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
-                        .endControlFlow()
-                        .addStatement("instance.addReceiver(object)")
-                        .build())
-                .addMethod(MethodSpec
-                        .methodBuilder("unregister")
-                        .addJavadoc("Unregisters an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
-                                "Throws an exception if no annotated method is found.")
-                        .addModifiers(PUBLIC, STATIC)
-                        .addParameter(Object.class, "object")
-                        .beginControlFlow("if(instance == null)")
-                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
-                        .endControlFlow()
-                            .addStatement("instance.removeReceiver(object)")
-                        .build())
+//                .addMethod(MethodSpec
+//                        .methodBuilder("register")
+//                        .addJavadoc("Registers an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
+//                                "Throws an exception if Breadcast is not initialized or no annotated method is found.")
+//                        .addModifiers(PUBLIC, STATIC)
+//                        .addParameter(Object.class, "object")
+//                        .beginControlFlow("if(instance == null)")
+//                            .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
+//                        .endControlFlow()
+//                        .addStatement("instance.addReceiver(object)")
+//                        .build())
+//                .addMethod(MethodSpec
+//                        .methodBuilder("unregister")
+//                        .addJavadoc("Unregisters an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
+//                                "Throws an exception if Breadcast is not initialized or no annotated method is found.")
+//                        .addModifiers(PUBLIC, STATIC)
+//                        .addParameter(Object.class, "object")
+//                        .beginControlFlow("if(instance == null)")
+//                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
+//                        .endControlFlow()
+//                            .addStatement("instance.removeReceiver(object)")
+//                        .build())
+//                .addMethod(MethodSpec
+//                        .methodBuilder("instance")
+//                        .addJavadoc("Returns the Breadcast instance initialized with {@link #init(Context)}. " +
+//                                "Throws an exception if bread is not initialized. Better bake it first.")
+//                        .addModifiers(PUBLIC, STATIC)
+//                        .returns(baseBCName)
+////                        .beginControlFlow("if(instance == null)")
+////                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
+////                        .endControlFlow()
+//                        .addStatement("return getInstance()")
+//                        .build())
                 .addMethod(MethodSpec
                         .methodBuilder("init")
-                        .addJavadoc("Starts Breadcast with a context, preferably an application context.")
+                        .addJavadoc("Installs (bakes) Breadcast with a context, preferably an application context.")
                         .addModifiers(PUBLIC, STATIC)
                         .addParameter(contextName, "context")
-                        .beginControlFlow("if(instance != null)")
-                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast already initialized.")
-                        .endControlFlow()
-                        .addStatement("instance = new $T(context)", breadcastName)
+//                        .beginControlFlow("if(instance != null)")
+//                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast already initialized.")
+//                        .endControlFlow()
+                        .addStatement("new $T(context)", breadcastName)
                         .build());
 
         MethodSpec.Builder initExecutionSpec = MethodSpec

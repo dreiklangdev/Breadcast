@@ -37,7 +37,7 @@ public class AnnotationBreadcastTest {
     public void testCast() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
         TestReceiver receiver = new TestReceiver();
-        Breadcast.register(receiver);
+        Breadcast.instance().register(receiver);
 
         appContext.sendBroadcast(new Intent("1"));
         appContext.sendBroadcast(new Intent("2"));
@@ -58,7 +58,7 @@ public class AnnotationBreadcastTest {
 
         final Context appContext = InstrumentationRegistry.getTargetContext();
         TestThreadedReceiver receiver = new TestThreadedReceiver(latch);
-        Breadcast.register(receiver);
+        Breadcast.instance().register(receiver);
 
         // receives in main thread
         appContext.sendBroadcast(new Intent("thread"));

@@ -11,7 +11,7 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 /**
- * @author Nhu Huy Le (mail@huyle.de), on 05/02/2018
+ * @author Nhu Huy Le (mail@huy-le.de), on 05/02/2018
  */
 
 public class TestThreadedReceiver {
