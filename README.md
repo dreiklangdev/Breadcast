@@ -70,13 +70,11 @@ class MyClass { // extends ...
 	</intent-filter>
 </receiver>
 ```
-
 ```
+...
 	@Receive(action = Intent.ACTION_USER_PRESENT)
-    static onBoot() { ... } // called exactly once each action
+    static onBoot() { ... } // must be static
 ```
-
-Important: Above, the respective annotated methods must be __static__!
 
 
 ## Download

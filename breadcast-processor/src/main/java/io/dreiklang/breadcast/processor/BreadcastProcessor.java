@@ -107,7 +107,6 @@ public class BreadcastProcessor extends AbstractProcessor {
     private TypeSpec generateBreadcast() {
         ClassName breadcastName   = ClassName.get("io.dreiklang.breadcast", "Breadcast");
         ClassName singletonBCName = ClassName.get("io.dreiklang.breadcast.base.statics", "SingletonBreadcast");
-        ClassName baseBCName      = ClassName.get("io.dreiklang.breadcast.base", "BaseBreadcast");
         ClassName execName        = ClassName.get("io.dreiklang.breadcast.base.exec", "TypedExecution");
         ClassName contextName     = ClassName.get("android.content", "Context");
         ClassName intentName      = ClassName.get("android.content", "Intent");
@@ -118,56 +117,17 @@ public class BreadcastProcessor extends AbstractProcessor {
                         "with {@link io.dreiklang.breadcast.annotation.Receive} of objects registered by {@link #register(Object)}.")
                 .addModifiers(PUBLIC)
                 .superclass(singletonBCName)
-//                .addField(FieldSpec
-//                        .builder(breadcastName, "instance", PRIVATE, STATIC)
-//                        .build())
                 .addMethod(MethodSpec
                         .constructorBuilder()
                         .addModifiers(PRIVATE)
                         .addParameter(contextName, "context")
                         .addStatement("super(context)")
                         .build())
-//                .addMethod(MethodSpec
-//                        .methodBuilder("register")
-//                        .addJavadoc("Registers an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
-//                                "Throws an exception if Breadcast is not initialized or no annotated method is found.")
-//                        .addModifiers(PUBLIC, STATIC)
-//                        .addParameter(Object.class, "object")
-//                        .beginControlFlow("if(instance == null)")
-//                            .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
-//                        .endControlFlow()
-//                        .addStatement("instance.addReceiver(object)")
-//                        .build())
-//                .addMethod(MethodSpec
-//                        .methodBuilder("unregister")
-//                        .addJavadoc("Unregisters an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. " +
-//                                "Throws an exception if Breadcast is not initialized or no annotated method is found.")
-//                        .addModifiers(PUBLIC, STATIC)
-//                        .addParameter(Object.class, "object")
-//                        .beginControlFlow("if(instance == null)")
-//                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
-//                        .endControlFlow()
-//                            .addStatement("instance.removeReceiver(object)")
-//                        .build())
-//                .addMethod(MethodSpec
-//                        .methodBuilder("instance")
-//                        .addJavadoc("Returns the Breadcast instance initialized with {@link #init(Context)}. " +
-//                                "Throws an exception if bread is not initialized. Better bake it first.")
-//                        .addModifiers(PUBLIC, STATIC)
-//                        .returns(baseBCName)
-////                        .beginControlFlow("if(instance == null)")
-////                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast not yet initialized.")
-////                        .endControlFlow()
-//                        .addStatement("return getInstance()")
-//                        .build())
                 .addMethod(MethodSpec
                         .methodBuilder("init")
                         .addJavadoc("Installs Breadcast with a context, preferably the application context. (Baking the bread)")
                         .addModifiers(PUBLIC, STATIC)
                         .addParameter(contextName, "context")
-//                        .beginControlFlow("if(instance != null)")
-//                        .addStatement("throw new $T($S)", IllegalStateException.class, "breadcast already initialized.")
-//                        .endControlFlow()
                         .addStatement("new $T(context)", breadcastName)
                         .build());
 
@@ -180,6 +140,9 @@ public class BreadcastProcessor extends AbstractProcessor {
             String params = Stream.of(receive.contextParam, receive.intentParam)
                     .filter(Objects::nonNull)
                     .collect(Collectors.joining(", "));
+            String actions = Stream.of(receive.actions)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.joining("\", \"","\"", "\""));
             TypeSpec execution = TypeSpec
                     .anonymousClassBuilder("")
                     .addJavadoc("item")
@@ -193,9 +156,23 @@ public class BreadcastProcessor extends AbstractProcessor {
                             .addStatement("object.$L($L)", receive.methodName, params)
                             .build())
                     .build();
-            initExecutionSpec
-                    .addStatement("putTypedExecution($T.class, $S, $S, $L, $T.$L, $L)",
-                            receive.type, receive.action, receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
+
+            switch (receive.actions.length) {
+                case 0:
+                    break;
+
+                case 1:
+                    initExecutionSpec
+                            .addStatement("putTypedExecution($T.class, $S, $S, $L, $T.$L, $L)",
+                                    receive.type, receive.actions[0], receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
+                    break;
+
+                default: // mutliple actions
+                    initExecutionSpec
+                            .addStatement("putTypedExecution($T.class, new String[] {$L}, $S, $L, $T.$L, $L)",
+                                    receive.type, actions, receive.methodName, receive.isStatic, ThreadModus.class, receive.threadModus, execution);
+                    break;
+            }
         });
 
         return breadcastBuilder
@@ -254,7 +231,7 @@ public class BreadcastProcessor extends AbstractProcessor {
 
             receive.type        = ClassName.get((TypeElement) method.getEnclosingElement());
             receive.methodName  = method.getSimpleName().toString();
-            receive.action      = annotation.action();
+            receive.actions     = annotation.action();
             receive.threadModus = annotation.threadMode();
 
             receives.add(receive);
@@ -266,7 +243,7 @@ public class BreadcastProcessor extends AbstractProcessor {
     private class ReceiveHolder {
         TypeName type;
         String methodName;
-        String action;
+        String[] actions;
         String contextParam;
         String intentParam;
         ThreadModus threadModus;

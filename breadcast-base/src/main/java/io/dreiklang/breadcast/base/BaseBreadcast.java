@@ -63,7 +63,19 @@ public abstract class BaseBreadcast {
         }
     }
 
-    protected <T> void putTypedExecution(final Class<T> clazz, final String action, final String method, final boolean isStatic, final ThreadModus modus, final TypedExecution<T> execution) {
+    protected <T> void map(final Class<T> clazz, final String action, final String method, final boolean isStatic, final ThreadModus modus, final TypedExecution<T> execution) {
+        mapMethod(clazz, method, isStatic, execution);
+        mapAction(clazz, method, modus, action);
+    }
+
+    protected <T> void map(final Class<T> clazz, final String[] actions, final String method, final boolean isStatic, final ThreadModus modus, final TypedExecution<T> execution) {
+        mapMethod(clazz, method, isStatic, execution);
+        for (String action : actions) {
+            mapAction(clazz, method, modus, action);
+        }
+    }
+
+    private <T> void mapMethod(Class<T> clazz, String method, final boolean isStatic, final TypedExecution<T> execution) {
         manager.defineExecutive(clazz, method, new TypedMultiExecution<T>() {
             @Override
             public void exec(Context context, Intent intent, Collection<T> instances) {
@@ -77,7 +89,9 @@ public abstract class BaseBreadcast {
                 }
             }
         });
+    }
 
+    private <T> void mapAction(final Class<T> clazz, final String method, final ThreadModus modus, String action) {
         caster.action(action, new Execution() {
             @Override
             public void exec(final Context context, final Intent intent) {

@@ -41,11 +41,14 @@ public class AnnotationBreadcastTest {
 
         appContext.sendBroadcast(new Intent("1"));
         appContext.sendBroadcast(new Intent("2"));
-        Thread.sleep(1000);
+        appContext.sendBroadcast(new Intent("3"));
+        appContext.sendBroadcast(new Intent("4"));
+        Thread.sleep(2000);
 
         assertTrue("hasRun1", receiver.isRun1());
         assertTrue("hasRun2", receiver.isRun2());
         assertTrue("hasRun3", receiver.isRun3());
+        assertTrue("hasRun4", receiver.isRun4());
         assertTrue("notRun", receiver.isNoRun());
     }
 

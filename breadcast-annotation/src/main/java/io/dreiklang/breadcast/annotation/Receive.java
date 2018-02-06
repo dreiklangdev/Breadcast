@@ -20,6 +20,6 @@ public @interface Receive {
 
     ThreadModus threadMode() default POSTING;
 
-    String action();
+    String[] action();
 
 }
