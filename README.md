@@ -5,10 +5,10 @@ Small Broadcast Receiver Library for Android
 
 > ... simplifies listening to broadcasts by hiding what would be boilerplate code.
 
-- __One for All__: Single BroadcastReceiver instance for a performance/memory boost
-- __Clean look__: Breadcast generates the code behind the curtains
+- __One for All__: Single BroadcastReceiver instance for performance/memory
+- __Clean look__: Generates the code behind the curtains
 - __Thread-Modes__: Multithreaded callback via annotation option
-- __Simple__: With broadcast listening possible in one statement
+- __Simple__: Broadcast listening possible in one statement
 
 #### Before:
 ```java
