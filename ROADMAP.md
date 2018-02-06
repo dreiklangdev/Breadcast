@@ -3,7 +3,8 @@
 - Configuration (on Initialization)
   - Log Level
   - Exception Handling
-- Thread Modes POSTING and MAIN possibly obsolete
+- Thread Modes POSTING possibly obsolete (default: MAIN)
+- Annotation param: multiple actions with string array
 
 ##### Help me if you can :)
 
