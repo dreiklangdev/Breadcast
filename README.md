@@ -33,7 +33,7 @@ context.registerBroadcast(new MyReceiver(), filter);
 
 ### With Breadcast you can choose between 2 ways:
 
-#### Breadcast Standalone (Base package):
+### 1. Breadcast Standalone (Base package)
 ```java
 new Breadcaster(context)
     .action(Intent.ACTION_SCREEN_OFF, (context, intent) -> ... )
@@ -41,7 +41,7 @@ new Breadcaster(context)
     .register();
 ```
 
-#### Breadcast Annotation:
+### 2. Breadcast Annotation
 ```java
 Breadcast.init(context);
 ```
@@ -53,22 +53,25 @@ class MyClass { // extends ...
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
     void onScreenOff() { ... }
+    
+    @Receive(action = Intent.ACTION_SCREEN_ON)
+    void onScreenOff() { ... }
 }
 ```
 
-##### More examples
+#### More examples
 ```java
-    @Receive(action = {Intent.ACTION_SCREEN_ON, Intent.ACTION_SCREEN_OFF}, threadMode = ThreadModus.ASYNC)
-    void onScreenChange(Context context, Intent intent) { ... } // multiple asynchronous
+@Receive(action = {Intent.ACTION_SCREEN_ON, Intent.ACTION_SCREEN_OFF})
+onScreenChange(Context context, Intent intent) { ... } // multiple
 	
-	@Receive(action = {"custom1", "custom2"})
-    void onCustom() { ... }
-	
-	static void withoutRegister() { ... } // static - called once regardless of registration	
+@Receive(action = {"custom1", "custom2"}, threadMode = ThreadModus.ASYNC)
+onCustom() { ... } // asynchronous
+
+@Receive(action = Intent.ACTION_SHUTDOWN)
+static withoutRegister() { ... } // static - called once regardless of registration	
 ```
 
-
-#####  To register Breadcast by manifest, use _ManifestBreadcast_:
+####  To register Breadcast implicit via manifest, use _ManifestBreadcast_
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
 	<intent-filter>
@@ -77,22 +80,23 @@ class MyClass { // extends ...
 </receiver>
 ```
 ```
-...
-	@Receive(action = Intent.ACTION_BOOT_COMPLETED)
-    static onBoot() { ... } // must be static
+@Receive(action = Intent.ACTION_BOOT_COMPLETED)
+static onBoot() { ... } // must be static
 ```
-
+## Notes
+- Standalone: Remember to call release() if not needed anymore (memory leaks)
+- Watch out for Android O's [implicit broadcast exceptions](https://developer.android.com/guide/components/broadcast-exceptions.html)
 
 ## Download
 #### Gradle
 ```java
 dependencies {
     // required
-    implementation 'io.dreiklang:breadcast-base:1.0.1'
+    implementation 'io.dreiklang:breadcast-base:1.1.0'
     
     // if you use the annotation
-    implementation 'io.dreiklang:breadcast-annotation:1.0.1'
-    annotationProcessor 'io.dreiklang:breadcast-processor:1.0.1'
+    implementation 'io.dreiklang:breadcast-annotation:1.1.0'
+    annotationProcessor 'io.dreiklang:breadcast-processor:1.1.0'
 }
 ```
 
