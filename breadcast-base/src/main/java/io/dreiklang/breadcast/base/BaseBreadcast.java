@@ -44,7 +44,7 @@ public abstract class BaseBreadcast {
     }
 
     /**
-     * Registers an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. Throws an exception if no annotated method is found. */
+     * Registers an object with annotated methods of @Receive. Throws an exception if no annotated method is found. */
     public void register(Object object) {
         if (!manager.addInstance(object)) {
             if (NamExceptionOpt) {
@@ -54,7 +54,7 @@ public abstract class BaseBreadcast {
     }
 
     /**
-     * Unregisters an object with annotated methods of {@link io.dreiklang.breadcast.annotation.Receive}. Throws an exception if no annotated method is found. */
+     * Unregisters an object with annotated methods of @Receive. Throws an exception if no annotated method is found. */
     public void unregister(Object object) {
         if (!manager.removeInstance(object)) {
             if (NamExceptionOpt) {
