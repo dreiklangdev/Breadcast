@@ -55,7 +55,7 @@ class MyClass { // extends ...
     void onScreenOff() { ... }
     
     @Receive(action = Intent.ACTION_SCREEN_ON)
-    void onScreenOff() { ... }
+    void onScreenOn() { ... }
 }
 ```
 
