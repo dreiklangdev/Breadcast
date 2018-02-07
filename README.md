@@ -48,7 +48,7 @@ Breadcast.init(context);
 ```java
 class MyClass { // extends ...
     MyClass() {
-        Breadcast.register(this); // required for non-static methods
+        Breadcast.instance().register(this); // required for non-static methods
     }
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
