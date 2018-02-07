@@ -48,7 +48,7 @@ Breadcast.init(context);
 ```java
 class MyClass { // extends ...
     MyClass() {
-        Breadcast.register(this); // only required for non-static methods
+        Breadcast.register(this); // required for non-static methods
     }
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
@@ -71,7 +71,7 @@ onCustomAsync() { ... } // asynchronous
 static withoutRegister() { ... } // static - called regardless of registration	
 ```
 
-####  To register Breadcast implicit via manifest, use _ManifestBreadcast_
+####  To register Breadcast via manifest (implicit/static), use _ManifestBreadcast_
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
 	<intent-filter>
