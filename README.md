@@ -84,7 +84,7 @@ static withoutRegister() { ... } // static - called regardless of registration
 static onBoot() { ... } // must be static
 ```
 ## Notes
-- Always init() Breadcast before usage (e.g. in Application class)
+- Annotation: Always init() Breadcast before usage (e.g. in Application class)
 - Standalone: Remember to call release() if not needed anymore (memory leaks)
 - Watch out for Android O's [implicit broadcast exceptions](https://developer.android.com/guide/components/broadcast-exceptions.html)
 
