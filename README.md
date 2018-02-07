@@ -68,10 +68,10 @@ onScreenChange(Context context, Intent intent) { ... } // multiple
 onCustomAsync() { ... } // asynchronous
 
 @Receive(action = Intent.ACTION_SHUTDOWN)
-static withoutRegister() { ... } // static - called regardless of registration	
+static withoutRegister() { ... } // static - called regardless of object registration	
 ```
 
-####  To register Breadcast via manifest (implicit/static), use _ManifestBreadcast_
+####  To define actions via manifest (implicit/static), use _ManifestBreadcast_
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
     <intent-filter>
@@ -83,8 +83,9 @@ static withoutRegister() { ... } // static - called regardless of registration
 @Receive(action = Intent.ACTION_BOOT_COMPLETED)
 static onBoot() { ... } // must be static
 ```
+__Important__: You must init() Breadcast nevertheless!
+
 ## Notes
-- Annotation: Always init() Breadcast before usage (e.g. in Application class)
 - Standalone: Remember to call release() if not needed anymore (memory leaks)
 - Watch out for Android O's [implicit broadcast exceptions](https://developer.android.com/guide/components/broadcast-exceptions.html)
 
