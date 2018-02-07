@@ -48,7 +48,7 @@ Breadcast.init(context);
 ```java
 class MyClass { // extends ...
     MyClass() {
-        Breadcast.register(this); // only required for non-static methods
+        Breadcast.register(this); // required for non-static methods
     }
     
     @Receive(action = Intent.ACTION_SCREEN_OFF)
@@ -64,14 +64,14 @@ class MyClass { // extends ...
 @Receive(action = {Intent.ACTION_SCREEN_ON, Intent.ACTION_SCREEN_OFF})
 onScreenChange(Context context, Intent intent) { ... } // multiple
 	
-@Receive(action = {"custom1", "custom2"}, threadMode = ThreadModus.ASYNC)
-onCustom() { ... } // asynchronous
+@Receive(action = "custom1", threadMode = ThreadModus.ASYNC)
+onCustomAsync() { ... } // asynchronous
 
 @Receive(action = Intent.ACTION_SHUTDOWN)
-static withoutRegister() { ... } // static - called once regardless of registration	
+static withoutRegister() { ... } // static - called regardless of registration	
 ```
 
-####  To register Breadcast implicit via manifest, use _ManifestBreadcast_
+####  To register Breadcast via manifest (implicit/static), use _ManifestBreadcast_
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
 	<intent-filter>
