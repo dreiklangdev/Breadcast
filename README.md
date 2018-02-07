@@ -74,9 +74,9 @@ static withoutRegister() { ... } // static - called regardless of registration
 ####  To register Breadcast via manifest (implicit/static), use _ManifestBreadcast_
 ```xml
 <receiver android:name="io.dreiklang.breadcast.base.statics.ManifestBreadcast">
-	<intent-filter>
-		<action android:name="android.intent.action.BOOT_COMPLETED" />
-	</intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
 </receiver>
 ```
 ```
