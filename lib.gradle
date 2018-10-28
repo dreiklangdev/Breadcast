@@ -7,7 +7,7 @@ ext {
     siteUrl = 'https://github.com/dreiklangdev/Breadcast'
     gitUrl = 'https://github.com/dreiklangdev/Breadcast.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.1.1'
 
     developerId = 'dreiklang'
     developerName = 'Nhu Huy Le'

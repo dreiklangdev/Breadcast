@@ -77,6 +77,7 @@ public class BreadcastProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         if (annotations.isEmpty()) {
+            // TODO generate empty breadcast class nevertheless
             return true;
         }
 
@@ -196,7 +197,7 @@ public class BreadcastProcessor extends AbstractProcessor {
             }
 
             if (!method.getModifiers().contains(PUBLIC)) {
-                messager.printMessage(Diagnostic.Kind.ERROR, "breadcast:\t annotated method must not be public.", annotated);
+                messager.printMessage(Diagnostic.Kind.ERROR, "breadcast:\t annotated method must be public.", annotated);
                 return false;
             }
 
